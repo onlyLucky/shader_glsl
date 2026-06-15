@@ -1,0 +1,4 @@
+{
+  "glsl-lint.glslangValidatorPath": "/opt/homebrew/bin/glslangValidator",
+  "glsl-lint.additionalOptions": "--target-env opengl"
+}
