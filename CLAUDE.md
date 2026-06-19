@@ -4,57 +4,38 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 项目概述
 
-这是一个从零开始学习 GLSL 着色器的项目，跟随视频教程进行实践学习。
+从零学习 GLSL 着色器的实践项目，跟随视频教程逐步掌握着色器编程。
 
-## 开发工具
-
-### 着色器验证
-
-使用 glslangValidator 验证 GLSL 代码：
+## 常用命令
 
 ```bash
-# 验证语法
+# 验证着色器语法（VSCode 会自动执行，但也可手动运行）
 glslangValidator --target-env opengl shader.frag
 
 # 编译为 SPIR-V
 glslangValidator -V shader.frag -o shader.spv
+
+# 查看预处理结果
+glslangValidator -E shader.frag
 ```
 
-### VSCode 集成
+glslangValidator 路径：`/opt/homebrew/bin/glslangValidator`
 
-已配置 GLSL Lint 扩展（`.vscode/settings.json`），打开 `.frag` 文件时自动进行语法检查。
+## 目录结构
 
-## GLSL 版本约定
-
-- **当前代码**：GLSL ES 1.00（旧语法，使用 `gl_FragColor`）
-- **学习目标**：GLSL ES 3.10+（现代语法，需要显式 `out` 变量和 `location` 声明）
-
-### 现代 GLSL 模板
-
-```glsl
-#version 310 es
-precision mediump float;
-
-layout(location = 0) out vec4 fragColor;
-
-void main() {
-    fragColor = vec4(1.0);
-}
-```
-
-## 文件类型
-
-| 扩展名 | 用途 |
+| 路径 | 说明 |
 |---|---|
-| `.frag` | 片段着色器 |
-| `.vert` | 顶点着色器 |
-| `.comp` | 计算着色器 |
+| `test.frag` | 主练习文件，跟随教程编写 |
+| `glsl/` | 独立的着色器示例（circle_shape.frag, color.frag） |
+| `docs/` | 工具使用文档（glslang-tools.md） |
 
-## 学习进度
+## GLSL 版本
 
-跟随视频教程从基础开始，逐步掌握：
-1. 基础语法和数据类型
-2. 向量和矩阵操作
-3. 内建函数
-4. 纹理采样
-5. 光照和阴影
+- **当前代码**：GLSL ES 1.00（使用 `gl_FragColor`）
+- **学习目标**：GLSL ES 3.10+（需要 `#version 310 es`、显式 `out` 变量和 `layout(location)`）
+
+编译为 SPIR-V 时必须使用 310 es 或更高版本，旧语法会报 `gl_FragColor undeclared` 错误。
+
+## 着色器文件扩展名
+
+`.frag`（片段）、`.vert`（顶点）、`.comp`（计算）——扩展名决定着色器阶段，glslangValidator 据此自动识别。
