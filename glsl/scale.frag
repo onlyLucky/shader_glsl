@@ -2,6 +2,8 @@
 precision mediump float;
 #endif
 
+// 006 缩放
+
 // 屏幕分辨率，由外部传入
 uniform vec2 u_resolution;
 
